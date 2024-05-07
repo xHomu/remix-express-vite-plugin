@@ -17,10 +17,8 @@ import { createReadableStreamFromReadable } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import { isbot } from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
-import { createExpressApp } from 'remix-create-express-app'
-import morgan from 'morgan'
-import { sayHello } from '#app/hello.server'
 import { type SessionData, type SessionFlashData } from '#app/session.server'
+export { app } from './app.server'
 
 const ABORT_DELAY = 5_000
 
@@ -81,13 +79,13 @@ export default function handleRequest(
   })
 }
 
-export function handleDataRequest(
-  response: Response,
-  { request, params, context }: LoaderFunctionArgs | ActionFunctionArgs,
-) {
-  console.log('handleDataRequest', response)
-  return response
-}
+// export function handleDataRequest(
+//   response: Response,
+//   { request, params, context }: LoaderFunctionArgs | ActionFunctionArgs,
+// ) {
+//   console.log('handleDataRequest', response)
+//   return response
+// }
 
 declare module '@remix-run/server-runtime' {
   export interface AppLoadContext {
@@ -96,15 +94,3 @@ declare module '@remix-run/server-runtime' {
     user?: string
   }
 }
-
-export const app = createExpressApp({
-  configure: app => {
-    // customize your express app with additional middleware
-    app.use(morgan('tiny'))
-  },
-  getLoadContext: () => {
-    // return the AppLoadContext
-    return { sayHello } as AppLoadContext
-  },
-  unstable_middleware: true,
-})
