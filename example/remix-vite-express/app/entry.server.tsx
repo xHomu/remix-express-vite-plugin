@@ -17,7 +17,7 @@ import { createReadableStreamFromReadable } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import { isbot } from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
-import { type SessionData, type SessionFlashData } from '#app/session.server'
+import { type SessionData, type SessionFlashData } from './session.server'
 export { app } from './app.server'
 
 const ABORT_DELAY = 5_000

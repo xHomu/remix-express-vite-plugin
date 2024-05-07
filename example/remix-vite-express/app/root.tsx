@@ -9,8 +9,9 @@ import {
   useRouteError,
 } from '@remix-run/react'
 
-import { session } from '#app/middleware/session'
+import { session } from './middleware/session'
 import { serverOnly$ } from 'vite-env-only'
+import styles from './style.css?url'
 
 // export your middleware as array of functions that Remix will call
 // wrap middleware in serverOnly$ to prevent it from being bundled in the browser
@@ -18,6 +19,10 @@ import { serverOnly$ } from 'vite-env-only'
 export const middleware = serverOnly$([
   session({ isCookieSessionStorage: true }),
 ])
+
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }]
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

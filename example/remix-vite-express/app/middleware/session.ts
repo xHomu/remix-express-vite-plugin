@@ -1,6 +1,6 @@
 // middleware/session.ts
 import { MiddlewareFunctionArgs } from 'remix-create-express-app/middleware'
-import { commitSession, getSession } from '#app/session.server'
+import { commitSession, getSession } from '../session.server'
 
 export type SessionMiddlewareArgs = {
   isCookieSessionStorage: boolean
