@@ -1,5 +1,5 @@
 import { serverOnly$ } from 'vite-env-only'
-import { requireAuth } from '#app/middleware/requireAuth'
+import { requireAuth } from '../middleware/requireAuth'
 
 export const middleware = serverOnly$([requireAuth])
 
