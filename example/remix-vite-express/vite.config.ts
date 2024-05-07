@@ -12,11 +12,13 @@ export default defineConfig({
     target: 'esnext',
   },
   plugins: [
-    expressDevServer(),
+    expressDevServer({
+      appDirectory: 'remix-app',
+    }),
     envOnly(),
     remix({
       ignoredRouteFiles: ['**/.*'],
-      // appDirectory: 'remix-app',
+      appDirectory: 'remix-app',
       future: { unstable_singleFetch: true },
     }),
     tsconfigPaths(),
