@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { Link } from '@remix-run/react'
 
 export const meta: MetaFunction = () => {
@@ -6,6 +6,19 @@ export const meta: MetaFunction = () => {
     { title: 'New Remix App' },
     { name: 'description', content: 'Welcome to Remix!' },
   ]
+}
+
+export const loader = async ({
+  context: { payload, user },
+}: LoaderFunctionArgs) => {
+  console.log(payload)
+  const users = await payload.find({
+    collection: 'users',
+  })
+
+  console.log({ user })
+
+  return { userCount: users.totalDocs }
 }
 
 export default function Index() {

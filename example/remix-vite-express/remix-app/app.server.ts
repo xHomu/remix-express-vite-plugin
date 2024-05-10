@@ -1,14 +1,27 @@
 import morgan from 'morgan'
 import { createExpressApp } from 'remix-create-express-app'
 import { sayHello } from './hello.server'
-import { AppLoadContext } from '@remix-run/node'
+import { AppLoadContext, Session } from '@remix-run/node'
 import compression from 'compression'
 import next from 'next'
+import { importWithoutClientFiles } from 'payload/node'
+import path from 'path'
+import { type Payload, getPayload } from 'payload'
+import { SanitizedConfig } from 'payload/types'
+import { type SessionData, type SessionFlashData } from './session.server'
 
 // Initiate Next Handler
 const nextApp = next({ dev: true })
 const handle = nextApp.getRequestHandler()
 await nextApp.prepare()
+
+// initiate payload local API
+const configPath = path.join(process.cwd(), 'payload.config.ts')
+const fullConfig = await importWithoutClientFiles<{
+  default: Promise<SanitizedConfig>
+}>(configPath)
+
+const payload = await getPayload({ config: await fullConfig.default })
 
 // @ts-expect-error - This is a valid import
 function nextHandler(req, res) {
@@ -32,7 +45,16 @@ export const app = createExpressApp({
   },
   getLoadContext: () => {
     // return the AppLoadContext
-    return { sayHello } as AppLoadContext
+    return { sayHello, payload } as AppLoadContext
   },
   unstable_middleware: true,
 })
+
+declare module '@remix-run/server-runtime' {
+  export interface AppLoadContext {
+    sayHello: () => string
+    payload: Payload
+    session: Session<SessionData, SessionFlashData>
+    user?: string
+  }
+}
