@@ -28,6 +28,12 @@ export default function Index() {
         <li>
           <a href="/my-route">This is a Next Route</a>
         </li>
+        <li>
+          <a href="/admin">This is a Next Admin Route</a>
+        </li>
+        <li>
+          <a href="/api/users">This is a Next API Route</a>
+        </li>
       </ul>
     </div>
   )

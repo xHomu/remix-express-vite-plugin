@@ -9,11 +9,7 @@
     ".next/types/**/*.ts"
   ],
   "compilerOptions": {
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2022"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": [
       "@remix-run/node",
       "vite/client",
@@ -32,9 +28,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "#*": [
-        "./*"
-      ]
+      "#*": ["./*"],
+      "@payload-config": ["./payload.config.ts"],
+      "payload/generated-types": ["./cms/payload-types.ts"]
     },
     // Vite takes care of building everything, not tsc.
     "noEmit": true,
@@ -45,7 +41,5 @@
       }
     ]
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

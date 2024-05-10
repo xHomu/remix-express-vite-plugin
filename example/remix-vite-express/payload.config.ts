@@ -2,7 +2,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload/config'
 import path from 'path'
-import Users from './cms/collections/Users.js'
+import Users from './cms/collections/Users'
 import { fileURLToPath } from 'url'
 
 const filename = fileURLToPath(import.meta.url)
