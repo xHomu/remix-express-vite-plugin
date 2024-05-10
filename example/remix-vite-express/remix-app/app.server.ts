@@ -6,11 +6,12 @@ import compression from 'compression'
 import next from 'next'
 
 // Initiate Next Handler
-let nextApp = next({ dev: true })
-let handle = nextApp.getRequestHandler()
+const nextApp = next({ dev: true })
+const handle = nextApp.getRequestHandler()
 await nextApp.prepare()
 
-function nextHandler(req: any, res: any) {
+// @ts-expect-error - This is a valid import
+function nextHandler(req, res) {
   return handle(req, res)
 }
 

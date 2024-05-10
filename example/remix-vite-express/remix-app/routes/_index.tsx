@@ -25,6 +25,9 @@ export default function Index() {
         <li>
           <Link to="/dashboard">Dashboard</Link>
         </li>
+        <li>
+          <a href="/my-route">This is a Next Route</a>
+        </li>
       </ul>
     </div>
   )

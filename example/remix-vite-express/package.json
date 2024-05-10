@@ -14,6 +14,9 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@payloadcms/db-mongodb": "3.0.0-beta.25",
+    "@payloadcms/next": "3.0.0-beta.25",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.25",
     "@remix-run/node": "^2.9.1",
     "@remix-run/react": "^2.9.1",
     "@remix-run/serve": "^2.9.1",
@@ -22,6 +25,7 @@
     "isbot": "^4.1.0",
     "morgan": "^1.10.0",
     "next": "14.3.0-canary.7",
+    "payload": "3.0.0-beta.25",
     "react": "^19.0.0-beta-94eed63c49-20240425",
     "react-dom": "^19.0.0-beta-94eed63c49-20240425",
     "remix-create-express-app": "^0.3.5"
