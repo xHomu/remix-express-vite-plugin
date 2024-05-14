@@ -10,6 +10,7 @@ import { SanitizedConfig } from 'payload/types'
 import { type SessionData, type SessionFlashData } from './session.server'
 import { auth } from './auth.server.js'
 import { User } from 'payload/auth'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
 // initiate payload local API
 const configPath = path.join(process.cwd(), 'payload.config.ts')
@@ -26,6 +27,26 @@ export const app = createExpressApp({
     app.use(compression())
     app.disable('x-powered-by')
     app.use(morgan('tiny'))
+
+    // add a local proxy to next process routes for PayloadCMS access
+    app.use(
+      '/_next',
+      createProxyMiddleware({
+        target: 'http://localhost:4000/_next',
+      }),
+    )
+    app.use(
+      '/api',
+      createProxyMiddleware({
+        target: 'http://localhost:4000/api',
+      }),
+    )
+    app.use(
+      '/admin',
+      createProxyMiddleware({
+        target: 'http://localhost:4000/admin',
+      }),
+    )
   },
   getLoadContext: async req => {
     // @ts-expect-error this should always exist

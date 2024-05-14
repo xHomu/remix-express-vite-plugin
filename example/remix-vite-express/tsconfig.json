@@ -28,7 +28,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "#*": ["./*"],
+      "#*": ["./*"],  
+      "@/*": [
+        "./src/*"
+      ],
       "@payload-config": ["./payload.config.ts"],
       "payload/generated-types": ["./cms/payload-types.ts"]
     },
