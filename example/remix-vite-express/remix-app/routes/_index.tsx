@@ -11,12 +11,11 @@ export const meta: MetaFunction = () => {
 export const loader = async ({
   context: { payload, user },
 }: LoaderFunctionArgs) => {
-  console.log(payload)
   const users = await payload.find({
     collection: 'users',
   })
 
-  console.log({ user })
+  console.log({ user, users })
 
   return { userCount: users.totalDocs }
 }
