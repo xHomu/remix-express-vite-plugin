@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
-import { Link } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,19 +11,21 @@ export const meta: MetaFunction = () => {
 export const loader = async ({
   context: { payload, user },
 }: LoaderFunctionArgs) => {
+  console.log({ user })
   const users = await payload.find({
     collection: 'users',
   })
 
-  console.log({ user, users })
-
-  return { userCount: users.totalDocs }
+  return { userCount: users?.totalDocs }
 }
 
 export default function Index() {
+  const { userCount } = useLoaderData<typeof loader>()
+
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
       <h1 className="text-blue-500">Welcome to Remix</h1>
+      <p>Users: {userCount}</p>
       <ul>
         <li>
           <Link to="/test">Test</Link>
@@ -38,10 +40,14 @@ export default function Index() {
           <Link to="/dashboard">Dashboard</Link>
         </li>
         <li>
-          <a href="/admin/login">This is a Next Admin Route</a>
+          <Link to="/api/users" reloadDocument>
+            This is a Payload API Route Proxy
+          </Link>
         </li>
         <li>
-          <a href="/api/users">This is a Next API Route</a>
+          <Link to="/admin/login" reloadDocument>
+            This is a Payload Admin Route Proxy
+          </Link>
         </li>
       </ul>
     </div>
